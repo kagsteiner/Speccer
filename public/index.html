@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Speccer – Start</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header><h1>Speccer</h1></header>
+  <main>
+    <h2>Start Specification Session</h2>
+    <p>Provide an app description and collaborator e-mails (comma separated). This app manages a single ongoing specification session.</p>
+    <form id="start-form">
+      <label for="description">App Description</label>
+      <textarea id="description" name="description" required placeholder="Describe the app to be specified..."></textarea>
+      <label for="emails">Collaborator Emails (comma separated)</label>
+      <textarea id="emails" name="emails" required placeholder="alice@example.com, bob@example.com"></textarea>
+      <button type="submit">Start Session</button>
+    </form>
+    <div id="message"></div>
+  </main>
+  <footer>Speccer &copy; 2025</footer>
+  <script>
+    const form = document.getElementById('start-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const description = document.getElementById('description').value.trim();
+      const emailsRaw = document.getElementById('emails').value.trim();
+      const emails = emailsRaw.split(/[,\n]/).map(e => e.trim()).filter(Boolean);
+      const res = await fetch('/start', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ description, emails })});
+      if (res.ok) {
+        const {ok, error} = await res.json();
+        if (ok) {
+          // Ask the user which email they are right now and store for later.
+          const me = prompt('Session started. Enter your email to participate now:');
+          if (me) localStorage.setItem('speccer_email', me.trim());
+          window.location.href = '/collaborate.html';
+        } else {
+          document.getElementById('message').textContent = error || 'Error starting session.';
+        }
+      } else {
+        document.getElementById('message').textContent = 'Failed to start session.';
+      }
+    });
+  </script>
+</body>
+</html>

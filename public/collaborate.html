@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Speccer – Collaborate</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header><h1 style="display:inline-block; margin-right:16px;">Speccer Collaboration</h1><button id="startOverBtn" style="background:#dc2626;">Start Over</button></header>
+  <main>
+    <div style="margin-bottom:12px;">
+      <label class="small">Your Email Identity</label>
+      <input type="text" id="myEmail" placeholder="you@example.com" />
+      <button id="saveEmail" style="margin-left:8px;">Set</button>
+      <span id="emailStatus" class="small"></span>
+    </div>
+    <div class="two-column">
+      <div class="pane" id="taskPane">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+          <h2 style="margin:0; font-size:1.1rem;">Current Task</h2>
+          <span id="status" class="status-badge">Loading...</span>
+        </div>
+        <div id="question" style="white-space:pre-wrap; margin-top:12px; line-height:1.4;"></div>
+        <form id="answerForm" style="margin-top:20px; display:flex; flex-direction:column; flex:1;">
+          <textarea id="answer" placeholder="Type your answer / comments..." required></textarea>
+          <button type="submit">Submit Answer</button>
+          <div id="submitMsg" class="small" style="margin-top:8px;"></div>
+        </form>
+        <div style="margin-top:20px;">
+          <strong>Collaborators</strong>
+          <div id="collaborators" class="answers-list"></div>
+        </div>
+      </div>
+      <div class="pane">
+        <h2 style="margin:0 0 8px 0; font-size:1.1rem;">Specification v<span id="docVersion">?</span></h2>
+        <div id="document" class="doc"></div>
+      </div>
+    </div>
+  </main>
+  <footer>Speccer &copy; 2025</footer>
+  <script src="/static/collaborate.js"></script>
+</body>
+</html>

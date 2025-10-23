@@ -38,6 +38,10 @@ Visit: http://localhost:3000/
 * `POST /api/answer` – { email, answer }
 * `POST /api/reset` – deletes state & all versioned documents (triggered by Start Over button)
 
-# Disclaimer
+## Limitations
+
+This app creates one single spec at a time. Not 3 of your specs. Not specs for several teams. And the app has no user management whatsoever. In the initial screen you provide mail-addresses to identify the authors. Later you can type any of them to be identified as that author. That's it. No checks, no bells, no whistles. I did this for me, happy if you can use it :-)
+
+## Disclaimer
 I've "vibe coded" (how I hate the term) this app. I have taken a look at the files, found nothing fishy, and tested it by using it successfully. Use at your own risk.
 

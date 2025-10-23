@@ -8,7 +8,7 @@ Simple collaborative specification assistant combining an LLM with multiple huma
 3. Each collaborator submits an answer. When all have answered the current question the server:
    - Consolidates answers + current doc via LLM producing new versioned document file.
    - Stores `document_<n>.md` (increment version counter).
-   - Generates the next question.
+   - Generates the next questions.
 4. Process repeats until you choose to stop (CTRL+C server, or just ignore more questions).
 
 ## Data Storage
@@ -16,14 +16,16 @@ All data is stored locally in `data/` as JSON + versioned Markdown files:
 * `data/state.json` – session state & answers.
 * `data/documents/document_<version>.md` – versioned specification documents.
 
+Once you're happy with your specification, take the latest version from the data storage and put it e.g. in Cursor, telling cursor to read it and build the app from it.
+
 ## Environment
-Optional: set `OPENAI_API_KEY` for real LLM responses (uses OpenAI Chat Completions). Without it a stub heuristic is used.
+Edit .env to add your OPENAI_API_KEY. Without it, this app won't do anything.
 
-Model selection: you can set `OPENAI_MODEL` (defaults to `gpt-5`). Examples: `gpt-4o-mini`, `gpt-4o`, `gpt-4.1`.
+Model selection: you can set `OPENAI_MODEL` (defaults to `gpt-5`). Examples: `gpt-4o-mini`, `gpt-4o`, `gpt-4.1`. I strongly recommend gpt-5. You want the best thinking model to get the best specification.
 
+Then do
 ```
-export OPENAI_API_KEY=sk-...
-export OPENAI_MODEL=gpt-5  # or gpt-4o-mini, gpt-4o, gpt-4.1
+npm init -y
 npm install
 npm start
 ```
@@ -36,10 +38,6 @@ Visit: http://localhost:3000/
 * `POST /api/answer` – { email, answer }
 * `POST /api/reset` – deletes state & all versioned documents (triggered by Start Over button)
 
-## Notes / Next Ideas
-* Provide a manual "finish" action distinct from destructive reset.
-* Add simple auth tokens.
-* Support multiple parallel sessions.
-* Add markdown rendering (client side) instead of plain text.
+# Disclaimer
+I've "vibe coded" (how I hate the term) this app. I have taken a look at the files, found nothing fishy, and tested it by using it successfully. Use at your own risk.
 
-Keep it simple per initial requirements.
